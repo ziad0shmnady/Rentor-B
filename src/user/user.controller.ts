@@ -31,17 +31,8 @@ export class UserController {
   ) {
     return await this.userService.createUser(req, res, user);
   }
-  //get user by id
-  @Get('/:id')
-  async getUserById(
-    @Param('id') id: UUID,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    return await this.userService.getUserById(req, res, id);
-  }
   //get all users
-  @Get('/all')
+  @Get('all')
   async getAllUsers(
     @Req() req: Request,
     @Res() res: Response,
@@ -50,6 +41,16 @@ export class UserController {
   ) {
     return await this.userService.getAllUsers(req, res, filter_name, sort_type);
   }
+  //get user by id
+  @Get('getOne/:id')
+  async getUserById(
+    @Param('id') id: UUID,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return await this.userService.getUserById(req, res, id);
+  }
+
   //update user
 
   @Put('/update/:id')
@@ -69,5 +70,11 @@ export class UserController {
     @Res() res: Response,
   ) {
     return await this.userService.deleteUser(req, res, id);
+  }
+  //switch to user
+  @UseGuards(JwtAuthGuard)
+  @Get('userProfile')
+  async switchToUser(@Req() req: Request, @Res() res: Response) {
+    return await this.userService.getUser(req, res);
   }
 }

@@ -119,4 +119,23 @@ export class UserService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  // switch to user
+  async getUser(req, res) {
+    const userId = req.user.userId;
+    console.log(req.user.type);
+    const user = await this.prismService.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found',
+      });
+    }
+    return res.status(200).json({
+      message: 'User found',
+      data: user,
+      newToken: res.locals.newToken,
+    });
+  }
 }
