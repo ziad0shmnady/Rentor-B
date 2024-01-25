@@ -22,10 +22,16 @@ export class UserDto {
   @IsNotEmpty()
   email: string;
   @IsString()
+  @IsNotEmpty()
+  gender: string;
+  @IsString()
+  @IsNotEmpty()
   phone: string;
   @IsString()
   @IsNotEmpty()
-  type: string;
+  address: string;
+  @IsNotEmpty()
+  birthdate: string;
   @IsString()
   @IsNotEmpty()
   password: string;
@@ -33,19 +39,25 @@ export class UserDto {
 
 export class UpdateUserDto implements Prisma.UserUpdateInput {
   @IsString()
-  @IsNotEmpty()
-  firstName: string | Prisma.StringFieldUpdateOperationsInput;
+  @IsOptional()
+  firstName: Prisma.StringFieldUpdateOperationsInput;
   @IsString()
-  lastName: string | Prisma.StringFieldUpdateOperationsInput;
+  lastName: Prisma.StringFieldUpdateOperationsInput;
   @IsEmail()
-  @IsNotEmpty()
-  email: string | Prisma.StringFieldUpdateOperationsInput;
+  @IsOptional()
+  email: Prisma.StringFieldUpdateOperationsInput;
   @IsString()
-  phone: string | Prisma.StringFieldUpdateOperationsInput;
+  @IsOptional()
+  gender: Prisma.StringFieldUpdateOperationsInput;
   @IsString()
-  @IsNotEmpty()
-  type: string | Prisma.StringFieldUpdateOperationsInput;
+  @IsOptional()
+  phone: Prisma.StringFieldUpdateOperationsInput;
   @IsString()
-  @IsNotEmpty()
-  password: string | Prisma.StringFieldUpdateOperationsInput;
+  @IsOptional()
+  address: Prisma.StringFieldUpdateOperationsInput;
+  @IsOptional()
+  birthdate: Prisma.StringFieldUpdateOperationsInput;
+  @IsString()
+  @IsOptional()
+  password: Prisma.StringFieldUpdateOperationsInput;
 }

@@ -47,11 +47,10 @@ export class UserService {
       return res.status(HttpStatus.OK).send(user);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }   
+    }
   }
   async getAllUsers(req, res, filter_name, sort_type): Promise<UserDto> {
     try {
-      console.log(filter_name);
       const users = await this.prismService.user.findMany({
         where: {
           firstName: {
@@ -74,23 +73,20 @@ export class UserService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
-  async updateUser(user_Id,req, res, UpdateUserDto): Promise<UserDto> {
+  async updateUser(req, res, id, UpdateUserDto): Promise<UserDto> {
     try {
-      
       //check if user exists
       const userExists = await this.prismService.user.findUnique({
         where: {
-          id: req.user.userId,
+          id: id,
         },
       });
       if (!userExists) {
-        var userId = user_Id;
-      } else {
-        var userId = req.user.userId;
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
       }
       const user = await this.prismService.user.update({
         where: {
-          id: userId,
+          id: id,
         },
         data: {
           ...UpdateUserDto,
@@ -101,6 +97,26 @@ export class UserService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
-
-
+  //delete user
+  async deleteUser(req, res, id): Promise<UserDto> {
+    try {
+      //check if user exists
+      const userExists = await this.prismService.user.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      if (!userExists) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+      const user = await this.prismService.user.delete({
+        where: {
+          id: id,
+        },
+      });
+      return res.status(HttpStatus.OK).send('User deleted successfully');
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

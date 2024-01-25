@@ -11,37 +11,78 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  firstName  String
-  lastName   String?
-  email      String   @unique
-  phone      String?
-  type       String
-  Isverified Boolean  @default(false)
-  password   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String    @id @default(uuid())
+  firstName String
+  lastName  String?
+  email     String    @unique
+  gender    String?
+  phone     String?
+  owner     Owner?
+  birthdate DateTime?
+  address   String?
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
-model Property{
-  id          String   @id @default(uuid())
-  title        String
-  description String
-  price       String
-  location    Json
-  status      String
-  category    String
-  Isverified  Boolean  @default(false)
-  type        type
-  images       String[]
-  size        String
-  rooms       String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  ownerId     String
+model Owner {
+  Id     String @id @default(uuid())
+  about  String
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String?
+  email     String   @unique
+  gender    String
+  phone     String?
+  type      String
+  birthdate DateTime
+  address   String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Support {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String?
+  email     String   @unique
+  gender    String
+  phone     String?
+  type      String
+  birthdate DateTime
+  address   String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Property {
+  id                 String   @id @default(uuid())
+  title              String
+  description        String
+  price              String
+  location           Json
+  status             String
+  category           String
+  IsAvailable        Boolean  @default(true)
+  type               type
+  images             String[]
+  conditionProb      String
+  conditionFurniture String
+  size               String
+  rooms              String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  ownerId            String
 }
 
 enum type {
-owner
-agent
+  apartment
+  house
 }
