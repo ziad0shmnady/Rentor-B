@@ -11,7 +11,7 @@ export class OwnerService {
     // get email from request
     const userId = req.user.userId;
     const ownerExists = await this.prismService.owner.findUnique({
-      where: { userId: userId },
+      where: { ownerId: userId },
     });
     if (ownerExists) {
       return res.status(409).json({
@@ -37,7 +37,7 @@ export class OwnerService {
   async updateOwner(owner, req, res): Promise<UpdateOwnerDto> {
     const userId = req.user.userId;
     const ownerExists = await this.prismService.owner.findUnique({
-      where: { userId: userId },
+      where: { ownerId: userId },
     });
     if (!ownerExists) {
       return res.status(404).json({
@@ -45,7 +45,7 @@ export class OwnerService {
       });
     }
     const updatedOwner = await this.prismService.owner.update({
-      where: { userId: userId },
+      where: { ownerId: userId },
       data: owner,
     });
     return res.status(200).json({
@@ -59,7 +59,7 @@ export class OwnerService {
     const userId = req.user.userId;
 
     const owner = await this.prismService.owner.findUnique({
-      where: { userId: userId },
+      where: { ownerId: userId },
     });
     if (!owner) {
       return res.status(404).json({

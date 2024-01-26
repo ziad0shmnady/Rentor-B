@@ -22,7 +22,6 @@ export class SwitchProfileMiddleware implements NestMiddleware {
         }
         return decoded;
       });
-
       // Modify the request object
       let modifiedToken = {
         ...decodedToken,

@@ -18,6 +18,9 @@ import { UserDto } from './user.dto';
 import { Request, Response } from 'express';
 import { UUID } from 'crypto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { RolesGuard } from 'src/roles/role.guard';
+import { Roles } from 'src/roles/roles.decorator';
+import { Role } from 'src/roles/role.enum';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -72,7 +75,8 @@ export class UserController {
     return await this.userService.deleteUser(req, res, id);
   }
   //switch to user
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
   @Get('userProfile')
   async switchToUser(@Req() req: Request, @Res() res: Response) {
     return await this.userService.getUser(req, res);

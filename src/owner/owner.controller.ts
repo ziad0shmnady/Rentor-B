@@ -12,6 +12,9 @@ import { OwnerService } from './owner.service';
 import { OwnerDto, UpdateOwnerDto } from './owner.dto';
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Roles } from 'src/roles/roles.decorator';
+import { RolesGuard } from 'src/roles/role.guard';
+import { Role } from 'src/roles/role.enum';
 
 @Controller('owner')
 export class OwnerController {
@@ -39,7 +42,8 @@ export class OwnerController {
     return await this.ownerService.updateOwner(owner, req, res);
   }
   // switch to owner
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.owner)
   @Get('ownerProfile')
   async switchToOwner(@Req() req: Request, @Res() res: Response) {
     return await this.ownerService.getOwner(req, res);

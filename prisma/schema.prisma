@@ -26,10 +26,10 @@ model User {
 }
 
 model Owner {
-  Id     String @id @default(uuid())
-  about  String
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  ownerId  String     @id
+  about    String
+  user     User       @relation(fields: [ownerId], references: [id])
+  property Property[]
 }
 
 model Admin {
@@ -65,21 +65,22 @@ model Support {
 model Property {
   id                 String   @id @default(uuid())
   title              String
-  description        String
-  price              String
-  location           Json
-  status             String
-  category           String
+  description        String?
+  price              String?
+  location           Json?
+  status             String?
+  category           String?
   IsAvailable        Boolean  @default(true)
-  type               type
+  type               type?
   images             String[]
-  conditionProb      String
-  conditionFurniture String
-  size               String
-  rooms              String
+  conditionProb      String?
+  conditionFurniture String?
+  size               String?
+  rooms              String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   ownerId            String
+  owner              Owner    @relation(fields: [ownerId], references: [ownerId])
 }
 
 enum type {

@@ -9,9 +9,10 @@ import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { OwnerModule } from './owner/owner.module';
+import { PropertyModule } from './property/property.module';
 
 @Module({
-  imports: [UserModule, PrismaModule, AuthModule, OwnerModule],
+  imports: [UserModule, PrismaModule, AuthModule, OwnerModule, PropertyModule],
   controllers: [],
   providers: [],
 })
