@@ -13,7 +13,7 @@ import { PropertyModule } from './property/property.module';
 
 @Module({
   imports: [UserModule, PrismaModule, AuthModule, OwnerModule, PropertyModule],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
