@@ -10,9 +10,11 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { OwnerModule } from './owner/owner.module';
 import { PropertyModule } from './property/property.module';
+import { AdminModule } from './admin/admin.module';
+import { SupportModule } from './support/support.module';
 
 @Module({
-  imports: [UserModule, PrismaModule, AuthModule, OwnerModule, PropertyModule],
+  imports: [UserModule, PrismaModule, AuthModule, OwnerModule, PropertyModule, AdminModule, SupportModule],
   controllers: [AppController],
   providers: [AppService],
 })

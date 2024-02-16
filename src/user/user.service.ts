@@ -24,13 +24,33 @@ export class UserService {
     }
   }
 
-  async getUserByEmail(email: string) {
+  async getUserByEmail(email: string): Promise<any> {
     try {
       const user = await this.prismService.user.findUnique({
         where: {
           email: email,
         },
       });
+      // console.log(user);
+      if (!user) {
+        return 'User not found';
+      }
+      return user;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+  async getAdminByEmail(email: string): Promise<any> {
+    try {
+      const user = await this.prismService.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
+      console.log(user);
+      if (!user) {
+        return 'User not found';
+      }
       return user;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
