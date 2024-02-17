@@ -16,12 +16,12 @@ export class AuthController {
   @UseGuards(AdminAuthGuard)
   @Post('admin/login')
   async adminLogin(@Request() req, @Res() res): Promise<any> {
-    return this.authService.generateJwt(req.user, res);
+    return this.authService.generateAdminJwt(req.user, res);
   }
   @UseGuards(SupportAuthGuard)
   @Post('support/login')
   async supportLogin(@Request() req, @Res() res): Promise<any> {
-    return this.authService.generateJwt(req.user, res);
+    return this.authService.generateSupportJwt(req.user, res);
   }
 
   @UseGuards(JwtAuthGuard)

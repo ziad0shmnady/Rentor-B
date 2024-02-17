@@ -25,7 +25,6 @@ export class AuthService {
         email: email,
       },
     });
-    console.log(user);
 
     if (!user) {
       throw new BadRequestException('User not found');
@@ -43,7 +42,7 @@ export class AuthService {
       email: user.email,
       sub: user.id,
       name: user.firstName,
-      type: 'user',
+      role: 'user',
     };
 
     return res.json({
@@ -86,7 +85,7 @@ export class AuthService {
       email: admin.email,
       sub: admin.id,
       name: admin.firstName,
-      type: 'admin',
+      role: 'admin',
     };
 
     return res.json({
@@ -99,7 +98,7 @@ export class AuthService {
       email: support.email,
       sub: support.id,
       name: support.firstName,
-      type: 'support',
+      role: 'support',
     };
 
     return res.json({

@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateAdminDto {
   @IsString()
@@ -8,7 +8,7 @@ export class CreateAdminDto {
   @IsString()
   @IsNotEmpty()
   lastName: string;
-  @IsString()
+  @IsEmail()
   @IsNotEmpty()
   email: string;
   @IsString()

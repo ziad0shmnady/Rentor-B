@@ -46,16 +46,46 @@ export class AdminService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} admin`;
+  findOne(id: string): Promise<CreateAdminDto> {
+    try {
+      const admin = this.prismService.admin.findUnique({
+        where: {
+          id,
+        },
+      });
+      return admin;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
-  update(id: number, updateAdminDto: UpdateAdminDto) {
-    return `This action updates a #${id} admin`;
+  update(id: string, updateAdminDto: UpdateAdminDto): Promise<UpdateAdminDto> {
+    try {
+      const admin = this.prismService.admin.update({
+        where: {
+          id,
+        },
+        data: {
+          ...updateAdminDto,
+        },
+      });
+      return admin;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} admin`;
+  remove(id: string) {
+    try {
+      const admin = this.prismService.admin.delete({
+        where: {
+          id,
+        },
+      });
+      return `Admin with id ${id} has been deleted`;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async getAdminByEmail(email: string): Promise<any> {

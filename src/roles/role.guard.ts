@@ -27,12 +27,19 @@ export class RolesGuard implements CanActivate {
     }
     const { user } = context.switchToHttp().getRequest();
 
-    // console.log(user.role);
-    const role = requiredRoles.some((type) => user.type?.includes(type));
+    // console.log(user);
+    const role = requiredRoles.some((role) => user.role?.includes(role));
     if (!role) {
-      throw new UnauthorizedException(
-        'You do not have the necessary permissions.',
-      );
+      // hanlde each role here and return the role should be returned
+      if (requiredRoles.includes(Role.admin)) {
+        throw new UnauthorizedException('You are not an admin');
+      } else if (requiredRoles.includes(Role.user)) {
+        throw new UnauthorizedException('You are not an user');
+      } else if (requiredRoles.includes(Role.owner)) {
+        throw new UnauthorizedException('You are not an owner');
+      } else if (requiredRoles.includes(Role.support)) {
+        throw new UnauthorizedException('You are not an support');
+      }
     }
     // console.log('sucess');
     return role;
