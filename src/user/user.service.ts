@@ -143,7 +143,7 @@ export class UserService {
   // switch to user
   async getUser(req, res) {
     const userId = req.user.userId;
-    console.log(req.user.type);
+    console.log(req.user.role);
     const user = await this.prismService.user.findUnique({
       where: { id: userId },
     });
@@ -152,6 +152,7 @@ export class UserService {
         message: 'User not found',
       });
     }
+
     return res.status(200).json({
       message: 'User found',
       data: user,

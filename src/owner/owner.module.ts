@@ -7,10 +7,4 @@ import { SwitchProfileMiddleware } from './owner.middleware';
   controllers: [OwnerController],
   providers: [OwnerService],
 })
-export class OwnerModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(SwitchProfileMiddleware)
-      .forRoutes('owner/ownerProfile', 'user/userProfile');
-  }
-}
+export class OwnerModule {}

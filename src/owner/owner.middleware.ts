@@ -25,11 +25,14 @@ export class SwitchProfileMiddleware implements NestMiddleware {
       // Modify the request object
       let modifiedToken = {
         ...decodedToken,
-        type: decodedToken.type === 'user' ? 'owner' : 'user',
+        role: decodedToken.role === 'user' ? 'owner' : 'user',
       };
+
       // Sign the modified token
       let newToken = jwt.sign(modifiedToken, 'secret');
+
       res.locals.newToken = newToken;
+
       // Set the modified token in the request headers
       req.headers.authorization = `Bearer ${newToken}`;
     }

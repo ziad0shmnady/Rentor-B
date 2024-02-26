@@ -43,7 +43,7 @@ export class OwnerController {
   }
   // switch to owner
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.owner)
+  @Roles(Role.user)
   @Get('ownerProfile')
   async switchToOwner(@Req() req: Request, @Res() res: Response) {
     return await this.ownerService.getOwner(req, res);

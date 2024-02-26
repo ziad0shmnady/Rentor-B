@@ -76,7 +76,7 @@ export class UserController {
   }
   //switch to user
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles(Role.owner)
   @Get('userProfile')
   async switchToUser(@Req() req: Request, @Res() res: Response) {
     return await this.userService.getUser(req, res);

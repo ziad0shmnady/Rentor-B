@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaService } from './prisma/prisma.service';
@@ -12,10 +12,25 @@ import { OwnerModule } from './owner/owner.module';
 import { PropertyModule } from './property/property.module';
 import { AdminModule } from './admin/admin.module';
 import { SupportModule } from './support/support.module';
+import { SwitchProfileMiddleware } from './owner/owner.middleware';
 
 @Module({
-  imports: [UserModule, PrismaModule, AuthModule, OwnerModule, PropertyModule, AdminModule, SupportModule],
+  imports: [
+    UserModule,
+    PrismaModule,
+    AuthModule,
+    OwnerModule,
+    PropertyModule,
+    AdminModule,
+    SupportModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(SwitchProfileMiddleware)
+      .forRoutes('owner/ownerProfile', 'user/userProfile');
+  }
+}
