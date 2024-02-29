@@ -34,30 +34,28 @@ export class PropertyController {
   }
 
   // get all props
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.owner)
+
   @Get('all')
   async getAll(@Req() req: Request) {
     return this.propertyService.getAll(req);
   }
   //get single prop by id
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.owner)
+  @UseGuards(RolesGuard)
+  @Roles()
   @Get('single/:id')
   async getSingle(@Req() req: Request, @Param('id') id: string) {
     return this.propertyService.getSingle(req, id);
   }
   //edit prop by id
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.owner)
+  @UseGuards(RolesGuard)
+  @Roles()
   @Put('edit/:id')
   async edit(@Req() req: Request, @Param('id') id: string) {
     return this.propertyService.edit(req, id);
   }
 
   //delete prop by id
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.owner)
+  @UseGuards(RolesGuard)
   @Delete('delete/:id')
   async delete(@Req() req: Request, @Param('id') id: string) {
     return this.propertyService.delete(req, id);

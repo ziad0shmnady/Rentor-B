@@ -27,9 +27,7 @@ export class PropertyService {
   // get all props
   async getAll(req): Promise<PropertyDTO[]> {
     try {
-      const allProperties = await this.prismService.property.findMany({
-        where: { ownerId: req.user.userId },
-      });
+      const allProperties = await this.prismService.property.findMany();
       return allProperties;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
