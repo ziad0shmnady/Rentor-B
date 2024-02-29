@@ -69,7 +69,7 @@ export class PropertyService {
   }
 
   ////delete prop by id
-  async delete(req, id): Promise<PropertyDTO> {
+  async delete(req, id): Promise<string> {
     try {
       const propertyExists = await this.prismService.property.findUnique({
         where: { id: id },
@@ -83,7 +83,7 @@ export class PropertyService {
       const deletedProperty = await this.prismService.property.delete({
         where: { id: id },
       });
-      return deletedProperty;
+      return `Property with id ${id} has been deleted`;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
