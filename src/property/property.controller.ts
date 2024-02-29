@@ -53,7 +53,7 @@ export class PropertyController {
   }
 
   //delete prop by id
-
+  @Delete('delete/:id')
   async delete(@Req() req: Request, @Param('id') id: string) {
     return this.propertyService.delete(req, id);
   }
