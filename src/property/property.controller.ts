@@ -12,7 +12,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { PropertyService } from './property.service';
-import { PropertyDTO } from './property.dto';
+import { CreatePropertyDto } from './property.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/roles/role.guard';
 import { Role } from 'src/roles/role.enum';
@@ -29,7 +29,7 @@ export class PropertyController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.owner)
   @Post('add')
-  async add(@Body() property: PropertyDTO, @Req() req: Request) {
+  async add(@Body() property: CreatePropertyDto, @Req() req: Request) {
     return this.propertyService.add(property, req);
   }
 

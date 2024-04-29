@@ -1,31 +1,31 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PropertyDTO } from './property.dto';
+import { CreatePropertyDto } from './property.dto';
 
 @Injectable()
 export class PropertyService {
   constructor(private prismService: PrismaService) {}
 
   // add new prop
-  async add(property, req): Promise<PropertyDTO> {
+  async add(property, req): Promise<any> {
     try {
       const newProperty = await this.prismService.property.create({
         data: {
           ...property,
           owner: {
             connect: {
-              ownerId: req.user.userId,
+              ownerId: 'fbb7e55a-da81-4309-b19f-eb97d0bb6c3c',
             },
           },
         },
       });
       return newProperty;
     } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+      console.log(error.message);
     }
   }
   // get all props
-  async getAll(req): Promise<PropertyDTO[]> {
+  async getAll(req): Promise<any[]> {
     try {
       const allProperties = await this.prismService.property.findMany();
       return allProperties;
@@ -34,7 +34,7 @@ export class PropertyService {
     }
   }
   //get single prop by id
-  async getSingle(req, id): Promise<PropertyDTO> {
+  async getSingle(req, id): Promise<any> {
     try {
       const singleProperty = await this.prismService.property.findUnique({
         where: { id: id },
@@ -45,7 +45,7 @@ export class PropertyService {
     }
   }
   //edit prop by id
-  async edit(req, id): Promise<PropertyDTO> {
+  async edit(req, id): Promise<any> {
     try {
       const propertyExists = await this.prismService.property.findUnique({
         where: { id: id },
