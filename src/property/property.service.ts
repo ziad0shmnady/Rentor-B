@@ -21,7 +21,7 @@ export class PropertyService {
       });
       return newProperty;
     } catch (error) {
-      console.log(error.message);
+      throw new HttpException(error.message, error.status);
     }
   }
   // get all props
