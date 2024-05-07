@@ -63,32 +63,36 @@ model Support {
 }
 
 model Property {
-  id               String   @id @default(uuid())
-  title            String //
-  description      String? //
-  price            String? //
-  location         Json?
-  status           String? //
-  category         String? //
-  IsAvailable      Boolean  @default(true)
-  type             type? //
-  images           String[]
-  size             String?
-  GrossM2          String? //
-  netM2            String? //
-  num_rooms        String? //
-  num_living_rooms String? //
-  warming_type     String? //
-  building_age     String? //
-  floor_location   String? //
-  street_address   String? //
-  rental_income    String? //
-  city             String? //
-  postal_code      String? //
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  ownerId          String
-  owner            Owner    @relation(fields: [ownerId], references: [ownerId])
+  id             String   @id @default(uuid())
+  title          String //
+  description    String? //
+  price          String? //
+  location       Json?
+  // status         String? //
+  // category       String? //
+  IsAvailable    Boolean  @default(true)
+  type           String? //
+  images         String[]
+  area           String? //szie
+  // GrossM2          String? //
+  // netM2            String? //
+  num_rooms      String? //
+  num_bath_rooms String? //  living room
+  // warming_type     String? //
+  // building_age     String? //
+  floor_location String? //
+  street_address String? //
+  // rental_income    String? //
+  furnished      Boolean? // 
+  email          String? //
+  phone          String? // 
+  // balcony          Boolean? //
+  city           String? //
+  postal_code    String? //
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  ownerId        String
+  owner          Owner    @relation(fields: [ownerId], references: [ownerId])
 }
 
 enum type {
