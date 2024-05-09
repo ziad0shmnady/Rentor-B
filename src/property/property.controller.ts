@@ -26,7 +26,6 @@ export class PropertyController {
   // add new prop
 
   @UsePipes(new ValidationPipe({ transform: true }))
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('add')
   async add(@Body() property: CreatePropertyDto, @Req() req: Request) {
     return this.propertyService.add(property, req);
