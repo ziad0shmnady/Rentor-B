@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Req,
   UseGuards,
   UsePipes,
@@ -34,8 +35,8 @@ export class PropertyController {
   // get all props
 
   @Get('all')
-  async getAll(@Req() req: Request) {
-    return this.propertyService.getAll(req);
+  async getAll(@Query() filterDto) {
+    return this.propertyService.getAll(filterDto);
   }
   //get single prop by id
 

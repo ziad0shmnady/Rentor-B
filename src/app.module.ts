@@ -13,6 +13,7 @@ import { PropertyModule } from './property/property.module';
 import { AdminModule } from './admin/admin.module';
 import { SupportModule } from './support/support.module';
 import { SwitchProfileMiddleware } from './owner/owner.middleware';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SwitchProfileMiddleware } from './owner/owner.middleware';
     PropertyModule,
     AdminModule,
     SupportModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

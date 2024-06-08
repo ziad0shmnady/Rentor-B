@@ -24,9 +24,15 @@ export class PropertyService {
     }
   }
   // get all props
-  async getAll(req): Promise<any[]> {
+  async getAll(filterDto): Promise<any[]> {
     try {
-      const allProperties = await this.prismService.property.findMany();
+      const allProperties = await this.prismService.property.findMany({
+        where: {
+          city: filterDto.city ? filterDto.city : undefined,
+          type: filterDto.type ? filterDto.type : undefined,
+          num_rooms: filterDto.num_rooms ? filterDto.num_rooms : undefined,
+        },
+      });
       return allProperties;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
