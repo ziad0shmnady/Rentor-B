@@ -13,7 +13,7 @@ export class PropertyService {
           ...property,
           owner: {
             connect: {
-              ownerId: 'fbb7e55a-da81-4309-b19f-eb97d0bb6c3c',
+              ownerId: req.user.userId,
             },
           },
         },
