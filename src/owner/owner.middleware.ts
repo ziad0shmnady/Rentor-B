@@ -7,9 +7,11 @@ import {
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class SwitchProfileMiddleware implements NestMiddleware {
-  use(req: Request, res: Response, next: NextFunction) {
+  constructor(private prismService: PrismaService) {}
+  async use(req: Request, res: Response, next: NextFunction) {
     // Get the JWT token from the request headers
     const token = req.headers.authorization?.split(' ')[1];
 
@@ -28,6 +30,16 @@ export class SwitchProfileMiddleware implements NestMiddleware {
         role: decodedToken.role === 'user' ? 'owner' : 'user',
         isOwner: true,
       };
+
+      //edit isOwner into
+      await this.prismService.user.update({
+        where: {
+          id: modifiedToken.sub,
+        },
+        data: {
+          isOwner: true,
+        },
+      });
 
       // Sign the modified token
       let newToken = jwt.sign(modifiedToken, 'secret');
