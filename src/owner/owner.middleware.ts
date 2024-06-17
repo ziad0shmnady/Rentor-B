@@ -26,6 +26,7 @@ export class SwitchProfileMiddleware implements NestMiddleware {
       let modifiedToken = {
         ...decodedToken,
         role: decodedToken.role === 'user' ? 'owner' : 'user',
+        isOwner: true,
       };
 
       // Sign the modified token

@@ -43,6 +43,7 @@ export class AuthService {
       sub: user.id,
       name: user.firstName,
       role: 'user',
+      isOwner: user.isOwner,
     };
 
     return res.json({
